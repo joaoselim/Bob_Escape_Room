@@ -75,27 +75,16 @@ public class PainelJogo extends JPanel implements Runnable{
         }
     }
 
+    public void update() {
 
-    public void update(){
-
-        jogador.update(cenarioAtual, cenario);
+        jogador.update(cenarioAtual);
 
         String novoCenario = cenario.updateCenario(cenarioAtual, jogador, screenWidth);
 
         if (!novoCenario.equals(cenarioAtual)) {
+
             cenarioAtual = novoCenario;
             carregarCenario(cenarioAtual);
-        }
-        if (jogador.usaPorta){
-            if (cenarioAtual.equals("Entrada")) {
-                /*if (jogador.x <= 195){
-                    carregarCenario("");
-                }*/
-                carregarCenario("Escritorio");
-            }
-            if (cenarioAtual.equals("Corredor")){
-                carregarCenario("Quarto");
-            }
         }
     }
 
@@ -114,6 +103,19 @@ public class PainelJogo extends JPanel implements Runnable{
         } else if (nomeCenario.equals("Bar")) {
 
             caminhoImagem = "/tela/Cenarios/bar.png";
+
+        } else if (nomeCenario.equals("Escritorio")) {
+
+            caminhoImagem = "/tela/Cenarios/escritorio.png";
+
+        } else if (nomeCenario.equals("Quarto")) {
+
+            caminhoImagem = "/tela/Cenarios/quarto.png";
+
+        } else {
+
+            System.out.println("CENARIO DESCONHECIDO: " + nomeCenario);
+            return;
         }
 
         try {

@@ -8,16 +8,55 @@ public class Portas {
     private boolean portaQuarto = false;
     private boolean portaHotel = false;
 
-    public void destrancar(int x, String cenarioAtual){
-        if(cenarioAtual.equals("Entrada") && x > 100){
-            portaEscritorio = true;
+    public String tentarUsarPorta(String cenarioAtual, Jogador jogador) {
+
+        // PORTA DO HOTEL
+        if (cenarioAtual.equals("Entrada") && jogador.x <= 195) {
+
+            if (!portaHotel) {
+                portaHotel = true;
+                System.out.println("Porta do hotel destrancada");
+            }
+
+            System.out.println("Concluiu o jogo");
+            return cenarioAtual;
         }
-        if(cenarioAtual.equals("Entrada") && x <= 195){
-            portaHotel = true;
+
+        // PORTA DO ESCRITÓRIO
+        if (cenarioAtual.equals("Entrada") && jogador.x >= 910 && jogador.x <= 1065) {
+
+            if (!portaEscritorio) {
+                portaEscritorio = true;
+                System.out.println("Porta do escritório destrancada");
+            }
+
+            return "Escritorio";
         }
-        if(cenarioAtual.equals("Corredor")){
-            portaQuarto = true;
+
+        // SAIR DO ESCRITÓRIO
+        if (cenarioAtual.equals("Escritorio") && jogador.x >= 900 && jogador.x <= 1100) {
+
+            return "Entrada";
         }
+
+        // PORTA DO QUARTO
+        if (cenarioAtual.equals("Corredor") && jogador.x >= 360 && jogador.x <= 510) {
+
+            if (!portaQuarto) {
+                portaQuarto = true;
+                System.out.println("Porta do quarto destrancada");
+            }
+
+            return "Quarto";
+        }
+
+        // SAIR DO QUARTO
+        if (cenarioAtual.equals("Quarto") && jogador.x <= 195) {
+
+            return "Corredor";
+        }
+
+        return cenarioAtual;
     }
 
     public boolean isPortaEscritorio() {

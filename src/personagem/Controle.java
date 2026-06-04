@@ -3,7 +3,7 @@ package personagem;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Controle implements KeyListener{
+public class Controle implements KeyListener {
 
     public boolean interagirAcionado;
     public boolean inventarioAcionado;
@@ -11,61 +11,72 @@ public class Controle implements KeyListener{
     public boolean direitaAcionado;
     public boolean puloAcionado;
 
-    //Verifica quais teclas são acionadas
+    private boolean interagirConsumido = false;
+
     @Override
     public void keyPressed(KeyEvent e) {
 
         int code = e.getKeyCode();
 
-        if(code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W) {
             interagirAcionado = true;
         }
 
-        if(code == KeyEvent.VK_E) {
+        if (code == KeyEvent.VK_E) {
             inventarioAcionado = true;
         }
 
-        if(code == KeyEvent.VK_A) {
+        if (code == KeyEvent.VK_A) {
             esquerdaAcionado = true;
         }
 
-        if(code == KeyEvent.VK_D) {
+        if (code == KeyEvent.VK_D) {
             direitaAcionado = true;
         }
 
-        if(code == KeyEvent.VK_SPACE) {
+        if (code == KeyEvent.VK_SPACE) {
             puloAcionado = true;
         }
     }
-
-    //Verifica quais teclas foram soltas
 
     @Override
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
 
-        if(code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W) {
             interagirAcionado = false;
+            interagirConsumido = false;
         }
 
-        if(code == KeyEvent.VK_E) {
+        if (code == KeyEvent.VK_E) {
             inventarioAcionado = false;
         }
 
-        if(code == KeyEvent.VK_A) {
+        if (code == KeyEvent.VK_A) {
             esquerdaAcionado = false;
         }
 
-        if(code == KeyEvent.VK_D) {
+        if (code == KeyEvent.VK_D) {
             direitaAcionado = false;
         }
 
-        if(code == KeyEvent.VK_SPACE) {
+        if (code == KeyEvent.VK_SPACE) {
             puloAcionado = false;
         }
     }
 
+    public boolean consumirInteracao() {
+
+        if (interagirAcionado && !interagirConsumido) {
+            interagirConsumido = true;
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
 }
