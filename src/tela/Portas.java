@@ -5,7 +5,9 @@ import personagem.Jogador;
 public class Portas {
 
     private boolean portaEscritorio = false;
+    private boolean portaEscritorioEntrada = true;
     private boolean portaQuarto = false;
+    private boolean portaQuartoCorredor = true;
     private boolean portaHotel = false;
 
     public String tentarUsarPorta(String cenarioAtual, Jogador jogador) {
@@ -34,7 +36,7 @@ public class Portas {
         }
 
         // SAIR DO ESCRITÓRIO
-        if (cenarioAtual.equals("Escritorio") && jogador.x >= 900 && jogador.x <= 1100) {
+        if (cenarioAtual.equals("Escritorio") && jogador.x >= 1100) {
 
             return "Entrada";
         }
@@ -51,7 +53,7 @@ public class Portas {
         }
 
         // SAIR DO QUARTO
-        if (cenarioAtual.equals("Quarto") && jogador.x <= 195) {
+        if (cenarioAtual.equals("Quarto") && jogador.x >= 1065) {
 
             return "Corredor";
         }

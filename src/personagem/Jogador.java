@@ -115,6 +115,8 @@ public class Jogador {
         boolean podeIrDireita = false;
         boolean podeIrEsquerda = false;
 
+        System.out.println(x);
+
         if (cenarioAtual.equals("Entrada") || cenarioAtual.equals("Corredor")) {
             podeIrDireita = true;
         }
