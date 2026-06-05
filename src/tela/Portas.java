@@ -1,6 +1,8 @@
 package tela;
-
+import javax.swing.JOptionPane;
 import personagem.Jogador;
+
+import javax.swing.*;
 
 public class Portas {
 
@@ -15,11 +17,11 @@ public class Portas {
 
             if (!portaHotel) {
                 portaHotel = true;
-                System.out.println("Porta do hotel destrancada");
+                JOptionPane.showMessageDialog(null, "Você destrancou o Hotel!", "", JOptionPane.INFORMATION_MESSAGE);
                 return cenarioAtual;
             }
 
-            System.out.println("Concluiu o jogo, encerrando");
+            JOptionPane.showMessageDialog(null, "Concluiu o jogo, encerrando", "", JOptionPane.INFORMATION_MESSAGE);
             return cenarioAtual;
         }
 
@@ -28,7 +30,7 @@ public class Portas {
 
             if (!portaEscritorio) {
                 portaEscritorio = true;
-                System.out.println("Porta do escritório destrancada");
+                JOptionPane.showMessageDialog(null, "Você destrancou o Escritório!", "", JOptionPane.INFORMATION_MESSAGE);
                 return cenarioAtual;
             }
 
@@ -45,7 +47,7 @@ public class Portas {
 
             if (!portaQuarto) {
                 portaQuarto = true;
-                System.out.println("Porta do quarto destrancada");
+                JOptionPane.showMessageDialog(null, "Você destrancou o Quarto!", "", JOptionPane.INFORMATION_MESSAGE);
                 return cenarioAtual;
             }
 
