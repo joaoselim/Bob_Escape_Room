@@ -5,6 +5,7 @@ import personagem.Jogador;
 
 public class Cenario {
 
+    private Cofre cofre = new Cofre();
     public Portas portas;
     public Cenario() {
         this.portas = new Portas();
@@ -91,7 +92,7 @@ public class Cenario {
             if (!Inventario.possuiItem("chave_escritorio")) {
                 // Cria e adiciona a chave ao inventário
                 Item chaveEscritorio = new Item();
-                chaveEscritorio.setChave_Escritorio(true);  // Adapte conforme seu sistema
+                chaveEscritorio.setChave_Escritorio(true);
                 jogador.adicionarItem(chaveEscritorio);
                 System.out.println("🔑 Você pegou a Chave do Escritório!");
             } else {
@@ -144,7 +145,12 @@ public class Cenario {
 
         // COFRE
         if (cenarioAtual.equals("Escritorio") && jogador.x >= 400 && jogador.x <= 780) {
-            return "CofreFechado";
+            if (cofre.isDestrancado()){
+                return "CofreAberto";
+            }
+            else {
+                return "CofreFechado";
+            }
         }
 
         return cenarioAtual;
