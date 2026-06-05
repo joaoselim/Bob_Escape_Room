@@ -152,6 +152,9 @@ public class Cenario {
                 return "CofreFechado";
             }
         }
+        if (cenarioAtual.equals("CofreFechado") && cofre.isDestrancado()){
+            return "CofreAberto";
+        }
 
         return cenarioAtual;
     }
