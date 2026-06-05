@@ -1,10 +1,13 @@
 package tela;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import personagem.Controle;
 import personagem.Jogador;
@@ -33,6 +36,13 @@ public class PainelJogo extends JPanel implements Runnable {
 
         this.addKeyListener(controle);
         this.setFocusable(true);
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                analisarClique(e.getX(), e.getY());
+            }
+        });
 
         cenarioAtual = "Entrada";
         carregarCenario(cenarioAtual);
@@ -74,6 +84,37 @@ public class PainelJogo extends JPanel implements Runnable {
             cenarioAtual = novoCenario;
             carregarCenario(cenarioAtual);
         }
+    }
+
+    private void analisarClique(int mouseX, int mouseY) {
+
+        if (cenarioAtual.equals("CofreFechado")) {
+
+            inputSenhaCofre();
+
+            this.requestFocusInWindow();
+        }
+    }
+    private void inputSenhaCofre(){
+
+        String senhaInserida = JOptionPane.showInputDialog(null, "Digite a senha:");
+        boolean abriu = cenario.getCofre().analisarSenha(senhaInserida);
+
+        if (abriu) {
+            cenarioAtual = "CofreAberto";
+            carregarCenario(cenarioAtual);
+            repaint();
+
+        } else {
+
+            if (senhaInserida != null) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Senha incorreta!"
+                );
+            }
+        }
+
     }
 
     private void carregarCenario(String nomeCenario) {

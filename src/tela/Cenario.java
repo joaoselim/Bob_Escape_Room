@@ -5,11 +5,18 @@ import personagem.Jogador;
 import javax.swing.JOptionPane;
 public class Cenario {
 
-    private Cofre cofre = new Cofre();
+    private Cofre cofre;
     public Portas portas;
+
     public Cenario() {
         this.portas = new Portas();
+        this.cofre = new Cofre();
     }
+
+    public Cofre getCofre() {
+        return cofre;
+    }
+
 
     public String updateCenario(String cenarioAtual, Jogador jogador, int screenWidth) {
 

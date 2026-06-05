@@ -8,13 +8,20 @@ public class Cofre {
 
     private void Destrancar(){ destrancado = true; }
 
-    public void inserirSenha(){
-        String senhaInserida = JOptionPane.showInputDialog(null, "Digite a senha:");
+    public boolean analisarSenha(String senhaInserida){
+
+        if (senhaInserida == null){
+            return false;
+        }
         if (senhaInserida.equals(senha)){
             System.out.println("Cofre aberto!");
             Destrancar();
+
+            return true;
         } else {
             System.out.println("Senha incorreta!");
+
+            return false;
         }
     }
 
