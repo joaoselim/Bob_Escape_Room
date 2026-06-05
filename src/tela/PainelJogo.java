@@ -151,5 +151,6 @@ public class PainelJogo extends JPanel implements Runnable {
         }
 
         g2.dispose();
+
     }
 }

@@ -180,6 +180,7 @@ public class Jogador {
         }
 
         velocidadeY += gravidade;
+
         y += velocidadeY;
 
         int alturaChao = chaoY - tamanhoPersonagem;
@@ -218,26 +219,10 @@ public class Jogador {
         }
 
         if (olhandoPraDireita) {
-
-            g2.drawImage(
-                    frameAtual,
-                    x,
-                    y,
-                    tamanhoPersonagem,
-                    tamanhoPersonagem,
-                    null
-            );
+            g2.drawImage(frameAtual, x, y, tamanhoPersonagem, tamanhoPersonagem,null);
 
         } else {
-
-            g2.drawImage(
-                    frameAtual,
-                    x + tamanhoPersonagem,
-                    y,
-                    -tamanhoPersonagem,
-                    tamanhoPersonagem,
-                    null
-            );
+            g2.drawImage(frameAtual,x + tamanhoPersonagem, y, -tamanhoPersonagem, tamanhoPersonagem,null);
         }
     }
 }

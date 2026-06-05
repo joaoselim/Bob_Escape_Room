@@ -19,7 +19,7 @@ public class Portas {
                 return cenarioAtual;
             }
 
-            System.out.println("Concluiu o jogo");
+            System.out.println("Concluiu o jogo, encerrando");
             return cenarioAtual;
         }
 

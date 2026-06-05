@@ -5,7 +5,6 @@ import personagem.Jogador;
 public class Cenario {
 
     public Portas portas;
-
     public Cenario() {
         this.portas = new Portas();
     }
