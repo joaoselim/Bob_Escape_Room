@@ -125,7 +125,7 @@ public class Jogador {
             podeIrEsquerda = true;
         }
 
-        // ===== MOVIMENTO HORIZONTAL =====
+        // ===== MOVIMENTO HORIZONTAL ==    ===
         if (controle.esquerdaAcionado) {
 
             if (!podeIrEsquerda) {
@@ -203,6 +203,21 @@ public class Jogador {
 
             pulando = false;
         }
+
+        if (consumirInteracao()){
+            if (cenarioAtual.equals("Entrada") && x >= 450 && x <= 610){
+                System.out.println("Chave Escritorio");
+            }
+            if (cenarioAtual.equals("Bar") && x >=1050){
+                System.out.println("Papel Cifrado");
+            }
+            if (cenarioAtual.equals("Quarto") && x >= 600 && x <=730){
+                System.out.println("Dolar");
+            }
+            if (cenarioAtual.equals("Escritorio") && x >= 125 && x <= 250){
+                System.out.println("Chave Quarto");
+            }
+        }
     }
 
     public boolean consumirInteracao() {
@@ -230,25 +245,11 @@ public class Jogador {
 
         if (olhandoPraDireita) {
 
-            g2.drawImage(
-                    frameAtual,
-                    x,
-                    y,
-                    tamanhoPersonagem,
-                    tamanhoPersonagem,
-                    null
-            );
+            g2.drawImage(frameAtual, x, y, tamanhoPersonagem, tamanhoPersonagem,null);
 
         } else {
 
-            g2.drawImage(
-                    frameAtual,
-                    x + tamanhoPersonagem,
-                    y,
-                    -tamanhoPersonagem,
-                    tamanhoPersonagem,
-                    null
-            );
+            g2.drawImage(frameAtual,x + tamanhoPersonagem, y, -tamanhoPersonagem, tamanhoPersonagem,null);
         }
     }
 }

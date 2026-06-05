@@ -5,9 +5,7 @@ import personagem.Jogador;
 public class Portas {
 
     private boolean portaEscritorio = false;
-    private boolean portaEscritorioEntrada = true;
     private boolean portaQuarto = false;
-    private boolean portaQuartoCorredor = true;
     private boolean portaHotel = false;
 
     public String tentarUsarPorta(String cenarioAtual, Jogador jogador) {
@@ -56,6 +54,16 @@ public class Portas {
         if (cenarioAtual.equals("Quarto") && jogador.x >= 1065) {
 
             return "Corredor";
+        }
+
+        //===== MUDANÇA DE CENARIO PARA FOCO EM OBJETOS =====
+        if (cenarioAtual.equals("Escritorio")){
+            if (jogador.x <= 125){
+                return "Prateleira";
+            }
+            if (jogador.x >= 400 && jogador.x <= 780){
+                return "CofreFechado";
+            }
         }
 
         return cenarioAtual;

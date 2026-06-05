@@ -112,6 +112,18 @@ public class PainelJogo extends JPanel implements Runnable{
 
             caminhoImagem = "/tela/Cenarios/quarto.png";
 
+        } else if (nomeCenario.equals("Prateleira")) {
+
+            caminhoImagem = "/tela/Cenarios/prateleira.png";
+
+        } else if (nomeCenario.equals("CofreFechado")) {
+
+            caminhoImagem = "/tela/Cenarios/cofre_fechado.png";
+
+        } else if (nomeCenario.equals("CofreAberto")) {
+
+            caminhoImagem = "/tela/Cenarios/cofre_aberto.png";
+
         } else {
 
             System.out.println("CENARIO DESCONHECIDO: " + nomeCenario);
@@ -145,7 +157,9 @@ public class PainelJogo extends JPanel implements Runnable{
         g2.drawImage(background, 0, 0, screenWidth, screenHeight, null);
 
         // DESENHA PLAYER
-        jogador.draw(g2);
+        if (!(cenarioAtual.equals("CofreFechado") || cenarioAtual.equals("Prateleira") || cenarioAtual.equals("CofreAberto"))) {
+            jogador.draw(g2);
+        }
 
         g2.dispose(); //finaliza o graphics2D
     }
