@@ -2,7 +2,7 @@ package tela;
 import personagem.Inventario.Itens.Item;
 import personagem.Inventario.*;
 import personagem.Jogador;
-
+import javax.swing.JOptionPane;
 public class Cenario {
 
     public Portas portas;
@@ -93,9 +93,7 @@ public class Cenario {
                 Item chaveEscritorio = new Item();
                 chaveEscritorio.setChave_Escritorio(true);  // Adapte conforme seu sistema
                 jogador.adicionarItem(chaveEscritorio);
-                System.out.println("🔑 Você pegou a Chave do Escritório!");
-            } else {
-                System.out.println("Você já pegou esta chave.");
+                JOptionPane.showMessageDialog(null, "Você encontrou a Chave do Escritório!", "Item Adquirido", JOptionPane.INFORMATION_MESSAGE);
             }
             return cenarioAtual;
         }
@@ -106,8 +104,7 @@ public class Cenario {
             {
                 Item papel = new Item();
                 papel.setPapel(true);
-                jogador.adicionarItem(papel);
-                System.out.println("Papel Cifrado");
+                jogador.adicionarItem(papel);JOptionPane.showMessageDialog(null, "Você encontrou um Enigma!", "Item Adquirido", JOptionPane.INFORMATION_MESSAGE);System.out.println("Papel Cifrado");
             }
             return cenarioAtual;
         }
@@ -119,7 +116,7 @@ public class Cenario {
                 Item dollar = new Item();
                 dollar.setDollar(true);
                 jogador.adicionarItem(dollar);
-                System.out.println("Dolar");
+                JOptionPane.showMessageDialog(null, "Você encontrou uma nota de Dollar!", "Item Adquirido", JOptionPane.INFORMATION_MESSAGE);
             }
 
             return cenarioAtual;
@@ -132,7 +129,7 @@ public class Cenario {
                 Item chaveQuarto = new Item();
                 chaveQuarto.setChave_quarto(true);
                 jogador.adicionarItem(chaveQuarto);
-                System.out.println("Chave Quarto");
+                JOptionPane.showMessageDialog(null, "Você encontrou a Chave do Quarto!", "Item Adquirido", JOptionPane.INFORMATION_MESSAGE);
             }
             return cenarioAtual;
         }
