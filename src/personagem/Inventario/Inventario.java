@@ -1,33 +1,43 @@
+package personagem.Inventario;
+import java.util.ArrayList;
+import personagem.Inventario.Itens.Item;
 public class Inventario {
-    private boolean chave_Patrão;
-    private boolean chave_quarto;
-    private boolean chave_hotel;
-    private boolean dollar;
-    private boolean papel;
+    private static ArrayList<Item> itens;
 
-    //GETTERS E SETTERS
-    public boolean isChave_Patrão() {return chave_Patrão;}
-    public void setChave_Patrão(boolean chave_Patrão) {
-        this.chave_Patrão = chave_Patrão;
+    public Inventario() {
+        itens = new ArrayList<>();
     }
 
-    public boolean isChave_quarto() {return chave_quarto;}
-    public void setChave_quarto(boolean chave_quarto) {
-        this.chave_quarto = chave_quarto;
+    // Adiciona um item ao inventário
+    public void adicionarItem(Item item) {
+        itens.add(item);
     }
 
-    public boolean isChave_hotel() {return chave_hotel;}
-    public void setChave_hotel(boolean chave_hotel) {
-        this.chave_hotel = chave_hotel;
+    // Verifica se possui um tipo específico de item
+    public static boolean possuiItem(String tipoItem) {
+        for(Item item : itens) {
+            switch(tipoItem) {
+                case "chave_escritorio":
+                    if(item.isChave_Escritorio()) return true;
+                    break;
+                case "chave_quarto":
+                    if(item.isChave_quarto()) return true;
+                    break;
+                case "chave_hotel":
+                    if(item.isChave_hotel()) return true;
+                    break;
+                case "dollar":
+                    if(item.isDollar()) return true;
+                    break;
+                case "papel":
+                    if(item.isPapel()) return true;
+                    break;
+            }
+        }
+        return false;
     }
 
-    public boolean isDollar() {return dollar;}
-    public void setDollar(boolean dollar) {
-        this.dollar = dollar;
-    }
-
-    public boolean isPapel() {return papel;}
-    public void setPapel(boolean papel) {
-        this.papel = papel;
+    public ArrayList<Item> getItens() {
+        return itens;
     }
 }

@@ -1,56 +1,41 @@
 package tela;
 
-import javax.swing.JPanel; //importa componente visual para gerar a tela
-import java.awt.*; //usado para configurar tamanho da tela e desenhar imagens
-import java.awt.image.BufferedImage; //armazena imagens carregadas
+import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
-import javax.imageio.ImageIO; //carrega imagens de arquivos, no nosso caso os cenarios
+import javax.imageio.ImageIO;
 
 import personagem.Controle;
 import personagem.Jogador;
 
-//Aqui determinamos que nosso painel é um JPanel, e runnable fica atualizando a tela constantemente
-public class PainelJogo extends JPanel implements Runnable{
+public class PainelJogo extends JPanel implements Runnable {
 
-    //Parametros do tamanho da tela
     final int screenWidth = 1365;
     final int screenHeight = 562;
 
-    //É oque permite o jogo ficar rodando
     Thread gameThread;
 
-    //Variável responsavel por verificar quais teclas estão precionadas
     Controle controle = new Controle();
 
     Jogador jogador = new Jogador(controle);
+
     Cenario cenario = new Cenario();
 
     BufferedImage background;
+
     String cenarioAtual;
 
-    public PainelJogo(){
+    public PainelJogo() {
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setDoubleBuffered(true); // coloquei p resolver problema da tela piscando
+        this.setDoubleBuffered(true);
 
-        // Ativando tudo pro teclado funcionar
-        this.addKeyListener(controle); // fiscaliza as teclas
-
+        this.addKeyListener(controle);
         this.setFocusable(true);
 
-        //carregamento do cenário
-        try {
-
-            background = ImageIO.read(
-                    getClass().getResourceAsStream("/tela/Cenarios/entrada.png")
-            );
-            cenarioAtual = "Entrada";
-
-        } catch (Exception e) {
-
-            System.out.println("ERRO AO CARREGAR CENARIO");
-            e.printStackTrace();
-        }
+        cenarioAtual = "Entrada";
+        carregarCenario(cenarioAtual);
     }
 
     public void startGameThread() {
@@ -59,25 +44,28 @@ public class PainelJogo extends JPanel implements Runnable{
         gameThread.start();
     }
 
-    //equanto o threads existir, o jogo roda
     @Override
     public void run() {
 
-        while (gameThread != null){
+        while (gameThread != null) {
 
-            update(); //atualiza o estado do jogador (andando, pulando, posição, etc)
+            update();
 
-            repaint(); //redesnha o painel
+            repaint();
 
             try {
-                Thread.sleep(16); // o threads pausa por 16 milli-segundos, oque da em torno de 60fps
-            } catch(Exception e) {}
+                Thread.sleep(16);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void update() {
 
-        jogador.update(cenarioAtual);
+        if (cenario.permiteMovimentoJogador(cenarioAtual)) {
+            jogador.update(cenarioAtual);
+        }
 
         String novoCenario = cenario.updateCenario(cenarioAtual, jogador, screenWidth);
 
@@ -112,6 +100,18 @@ public class PainelJogo extends JPanel implements Runnable{
 
             caminhoImagem = "/tela/Cenarios/quarto.png";
 
+        } else if (nomeCenario.equals("Prateleira")) {
+
+            caminhoImagem = "/tela/Cenarios/prateleira.png";
+
+        } else if (nomeCenario.equals("CofreFechado")) {
+
+            caminhoImagem = "/tela/Cenarios/cofre_fechado.png";
+
+        } else if (nomeCenario.equals("CofreAberto")) {
+
+            caminhoImagem = "/tela/Cenarios/cofre_aberto.png";
+
         } else {
 
             System.out.println("CENARIO DESCONHECIDO: " + nomeCenario);
@@ -135,18 +135,22 @@ public class PainelJogo extends JPanel implements Runnable{
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
 
-        super.paintComponent(g); //limpa a tela antes de pintar denovo
+        super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
 
-        // DESENHA CENARIO
-        g2.drawImage(background, 0, 0, screenWidth, screenHeight, null);
+        if (background != null) {
+            g2.drawImage(background, 0, 0, screenWidth, screenHeight, null);
+        }
 
-        // DESENHA PLAYER
-        jogador.draw(g2);
+        if (cenario.deveDesenharJogador(cenarioAtual)) {
+            jogador.draw(g2);
+        }
 
-        g2.dispose(); //finaliza o graphics2D
+        g2.dispose();
+
     }
 }

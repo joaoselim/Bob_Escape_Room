@@ -1,17 +1,17 @@
-package Itens;
+package personagem.Inventario.Itens;
 
 public class Item {
 
-    private boolean chave_Patrão;
+    private boolean chave_escritorio;
     private boolean chave_quarto;
     private boolean chave_hotel;
     private boolean dollar;
     private boolean papel;
 
     //GETTERS E SETTERS
-    public boolean isChave_Patrão() {return chave_Patrão;}
-    public void setChave_Patrão(boolean chave_Patrão) {
-        this.chave_Patrão = chave_Patrão;
+    public boolean isChave_Escritorio() {return chave_escritorio;}
+    public void setChave_Escritorio(boolean chave_escritorio) {
+        this.chave_escritorio = chave_escritorio;
     }
 
     public boolean isChave_quarto() {return chave_quarto;}
