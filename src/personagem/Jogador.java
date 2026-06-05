@@ -9,7 +9,6 @@ public class Jogador {
 
     Controle controle;
 
-    // ===== POSIÇÃO =====
     public int x = 0;
 
     public final int tamanhoPersonagem = 185;
@@ -20,7 +19,6 @@ public class Jogador {
 
     int velocidade = 5;
 
-    // Guarda para qual lado o Bob está olhando
     boolean olhandoPraDireita = true;
 
     double velocidadeY = 0;
@@ -28,13 +26,11 @@ public class Jogador {
 
     boolean pulando = false;
 
-    // ===== SPRITES =====
     BufferedImage[] framesAndando;
     BufferedImage[] framesParado;
 
     BufferedImage framePulando;
 
-    // ===== ANIMAÇÃO =====
     int controleSprite = 0;
     int spriteNum = 0;
 
@@ -115,8 +111,6 @@ public class Jogador {
         boolean podeIrDireita = false;
         boolean podeIrEsquerda = false;
 
-        System.out.println(x);
-
         if (cenarioAtual.equals("Entrada") || cenarioAtual.equals("Corredor")) {
             podeIrDireita = true;
         }
@@ -125,7 +119,6 @@ public class Jogador {
             podeIrEsquerda = true;
         }
 
-        // ===== MOVIMENTO HORIZONTAL ==    ===
         if (controle.esquerdaAcionado) {
 
             if (!podeIrEsquerda) {
@@ -158,7 +151,6 @@ public class Jogador {
             olhandoPraDireita = true;
         }
 
-        // ===== ANIMAÇÃO =====
         controleSprite++;
 
         if (controleSprite > 10) {
@@ -182,17 +174,14 @@ public class Jogador {
             controleSprite = 0;
         }
 
-        // ===== PULO =====
         if (controle.puloAcionado && !pulando) {
             velocidadeY = -13;
             pulando = true;
         }
 
-        // ===== GRAVIDADE =====
         velocidadeY += gravidade;
         y += velocidadeY;
 
-        // ===== CHÃO =====
         int alturaChao = chaoY - tamanhoPersonagem;
 
         if (y >= alturaChao) {
@@ -202,21 +191,6 @@ public class Jogador {
             velocidadeY = 0;
 
             pulando = false;
-        }
-
-        if (consumirInteracao()){
-            if (cenarioAtual.equals("Entrada") && x >= 450 && x <= 610){
-                System.out.println("Chave Escritorio");
-            }
-            if (cenarioAtual.equals("Bar") && x >=1050){
-                System.out.println("Papel Cifrado");
-            }
-            if (cenarioAtual.equals("Quarto") && x >= 600 && x <=730){
-                System.out.println("Dolar");
-            }
-            if (cenarioAtual.equals("Escritorio") && x >= 125 && x <= 250){
-                System.out.println("Chave Quarto");
-            }
         }
     }
 
@@ -245,11 +219,25 @@ public class Jogador {
 
         if (olhandoPraDireita) {
 
-            g2.drawImage(frameAtual, x, y, tamanhoPersonagem, tamanhoPersonagem,null);
+            g2.drawImage(
+                    frameAtual,
+                    x,
+                    y,
+                    tamanhoPersonagem,
+                    tamanhoPersonagem,
+                    null
+            );
 
         } else {
 
-            g2.drawImage(frameAtual,x + tamanhoPersonagem, y, -tamanhoPersonagem, tamanhoPersonagem,null);
+            g2.drawImage(
+                    frameAtual,
+                    x + tamanhoPersonagem,
+                    y,
+                    -tamanhoPersonagem,
+                    tamanhoPersonagem,
+                    null
+            );
         }
     }
 }

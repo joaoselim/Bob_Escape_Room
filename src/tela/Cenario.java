@@ -1,4 +1,3 @@
-//AQUI REALIZAR ANALISE DE QUAL CENARIO DEVE SER MOSTRADO E MANDAR COMO VARIAVEL DEFINIDA
 package tela;
 
 import personagem.Jogador;
@@ -13,20 +12,45 @@ public class Cenario {
 
     public String updateCenario(String cenarioAtual, Jogador jogador, int screenWidth) {
 
-        // ===== TROCA DE CENÁRIO POR INTERAÇÃO COM W =====
         if (jogador.consumirInteracao()) {
 
-            String novoCenario = portas.tentarUsarPorta(cenarioAtual, jogador);
+            // Se estiver em uma tela de foco, W volta para o escritório
+            if (cenarioAtual.equals("Prateleira")) {
+                jogador.x = 80;
+                return "Escritorio";
+            }
 
-            if (!novoCenario.equals(cenarioAtual)) {
+            if (cenarioAtual.equals("CofreFechado")) {
+                jogador.x = 590;
+                return "Escritorio";
+            }
 
-                reposicionarJogadorDepoisDaPorta(cenarioAtual, novoCenario, jogador, screenWidth);
+            if (cenarioAtual.equals("CofreAberto")) {
+                jogador.x = 590;
+                return "Escritorio";
+            }
 
-                return novoCenario;
+            // Primeiro tenta usar portas
+            String destinoPorta = portas.tentarUsarPorta(cenarioAtual, jogador);
+
+            if (destinoPorta != null) {
+
+                if (!destinoPorta.equals(cenarioAtual)) {
+                    reposicionarJogadorDepoisDaPorta(cenarioAtual, destinoPorta, jogador, screenWidth);
+                }
+
+                return destinoPorta;
+            }
+
+            // Se não era porta, tenta interações normais do mapa
+            String destinoInteracao = verificarInteracoesDoMapa(cenarioAtual, jogador);
+
+            if (!destinoInteracao.equals(cenarioAtual)) {
+                return destinoInteracao;
             }
         }
 
-        // ===== TROCA DE CENÁRIO AO SAIR DA TELA =====
+        // TROCA DE CENÁRIO AO SAIR DA TELA
 
         // Entrada -> Corredor
         if (cenarioAtual.equals("Entrada") && jogador.x >= 1260) {
@@ -59,6 +83,45 @@ public class Cenario {
         return cenarioAtual;
     }
 
+    private String verificarInteracoesDoMapa(String cenarioAtual, Jogador jogador) {
+
+        // MESA DA ENTRADA
+        if (cenarioAtual.equals("Entrada") && jogador.x >= 450 && jogador.x <= 610) {
+            System.out.println("Chave Escritorio");
+            return cenarioAtual;
+        }
+
+        // MÁQUINA DE SALGADINHO
+        if (cenarioAtual.equals("Bar") && jogador.x >= 1050) {
+            System.out.println("Papel Cifrado");
+            return cenarioAtual;
+        }
+
+        // MESINHA DO QUARTO
+        if (cenarioAtual.equals("Quarto") && jogador.x >= 600 && jogador.x <= 730) {
+            System.out.println("Dolar");
+            return cenarioAtual;
+        }
+
+        // LIXEIRA DO ESCRITÓRIO
+        if (cenarioAtual.equals("Escritorio") && jogador.x >= 125 && jogador.x <= 250) {
+            System.out.println("Chave Quarto");
+            return cenarioAtual;
+        }
+
+        // PRATELEIRA
+        if (cenarioAtual.equals("Escritorio") && jogador.x <= 125) {
+            return "Prateleira";
+        }
+
+        // COFRE
+        if (cenarioAtual.equals("Escritorio") && jogador.x >= 400 && jogador.x <= 780) {
+            return "CofreFechado";
+        }
+
+        return cenarioAtual;
+    }
+
     private void reposicionarJogadorDepoisDaPorta(
             String cenarioAntigo,
             String cenarioNovo,
@@ -68,7 +131,7 @@ public class Cenario {
 
         // Entrada -> Escritório
         if (cenarioAntigo.equals("Entrada") && cenarioNovo.equals("Escritorio")) {
-            jogador.x = 950;
+            jogador.x = 1000;
         }
 
         // Escritório -> Entrada
@@ -78,12 +141,46 @@ public class Cenario {
 
         // Corredor -> Quarto
         else if (cenarioAntigo.equals("Corredor") && cenarioNovo.equals("Quarto")) {
-            jogador.x = 900;
+            jogador.x = 1000;
         }
 
         // Quarto -> Corredor
         else if (cenarioAntigo.equals("Quarto") && cenarioNovo.equals("Corredor")) {
             jogador.x = 430;
         }
+    }
+
+    public boolean deveDesenharJogador(String cenarioAtual) {
+
+        if (cenarioAtual.equals("Prateleira")) {
+            return false;
+        }
+
+        if (cenarioAtual.equals("CofreFechado")) {
+            return false;
+        }
+
+        if (cenarioAtual.equals("CofreAberto")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean permiteMovimentoJogador(String cenarioAtual) {
+
+        if (cenarioAtual.equals("Prateleira")) {
+            return false;
+        }
+
+        if (cenarioAtual.equals("CofreFechado")) {
+            return false;
+        }
+
+        if (cenarioAtual.equals("CofreAberto")) {
+            return false;
+        }
+
+        return true;
     }
 }

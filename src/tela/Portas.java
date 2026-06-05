@@ -16,6 +16,7 @@ public class Portas {
             if (!portaHotel) {
                 portaHotel = true;
                 System.out.println("Porta do hotel destrancada");
+                return cenarioAtual;
             }
 
             System.out.println("Concluiu o jogo");
@@ -28,6 +29,7 @@ public class Portas {
             if (!portaEscritorio) {
                 portaEscritorio = true;
                 System.out.println("Porta do escritório destrancada");
+                return cenarioAtual;
             }
 
             return "Escritorio";
@@ -35,7 +37,6 @@ public class Portas {
 
         // SAIR DO ESCRITÓRIO
         if (cenarioAtual.equals("Escritorio") && jogador.x >= 1100) {
-
             return "Entrada";
         }
 
@@ -45,6 +46,7 @@ public class Portas {
             if (!portaQuarto) {
                 portaQuarto = true;
                 System.out.println("Porta do quarto destrancada");
+                return cenarioAtual;
             }
 
             return "Quarto";
@@ -52,21 +54,10 @@ public class Portas {
 
         // SAIR DO QUARTO
         if (cenarioAtual.equals("Quarto") && jogador.x >= 1065) {
-
             return "Corredor";
         }
 
-        //===== MUDANÇA DE CENARIO PARA FOCO EM OBJETOS =====
-        if (cenarioAtual.equals("Escritorio")){
-            if (jogador.x <= 125){
-                return "Prateleira";
-            }
-            if (jogador.x >= 400 && jogador.x <= 780){
-                return "CofreFechado";
-            }
-        }
-
-        return cenarioAtual;
+        return null;
     }
 
     public boolean isPortaEscritorio() {
