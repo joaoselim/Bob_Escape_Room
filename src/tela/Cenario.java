@@ -5,11 +5,18 @@ import personagem.Jogador;
 import javax.swing.JOptionPane;
 public class Cenario {
 
-    private Cofre cofre = new Cofre();
+    private Cofre cofre;
     public Portas portas;
-    public Cenario() {
+
+    public Cenario(Jogador jogador) {
         this.portas = new Portas();
+        this.cofre = new Cofre(jogador);
     }
+
+    public Cofre getCofre() {
+        return cofre;
+    }
+
 
     public String updateCenario(String cenarioAtual, Jogador jogador, int screenWidth) {
 
@@ -143,6 +150,9 @@ public class Cenario {
         // COFRE
         if (cenarioAtual.equals("Escritorio") && jogador.x >= 400 && jogador.x <= 780) {
             if (cofre.isDestrancado()){
+                Item chaveEscritorio = new Item();
+                chaveEscritorio.setChave_hotel(true);
+                jogador.adicionarItem(chaveEscritorio);
                 return "CofreAberto";
             }
             else {

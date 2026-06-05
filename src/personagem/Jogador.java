@@ -228,7 +228,7 @@ public class Jogador {
         }
     }
     public void adicionarItem(Item item) {
-        inventario.adicionarItem(item);
+        this.inventario.adicionarItem(item);
     }
 
     public boolean possuiItem(String nomeItem) {

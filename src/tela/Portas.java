@@ -13,11 +13,11 @@ public class Portas {
     public String tentarUsarPorta(String cenarioAtual, Jogador jogador) {
 
         // PORTA DO HOTEL
-        if (cenarioAtual.equals("Entrada") && jogador.x <= 195) {
+        if (cenarioAtual.equals("Entrada") && jogador.x <= 195 && jogador.possuiItem("chave_hotel")) {
 
             if (!portaHotel) {
-                portaHotel = true;
                 JOptionPane.showMessageDialog(null, "Você destrancou o Hotel!", "", JOptionPane.INFORMATION_MESSAGE);
+                portaHotel = true;
                 return cenarioAtual;
             }
 
