@@ -28,6 +28,7 @@ A progressão do jogo envolve:
 | Espaço | Pular |
 | W | Interagir com objetos, portas e locais específicos |
 | E | Abrir ou fechar a visualização de imagem/item na tela |
+| S | Salvar o jogo |
 
 ## Uso de Inteligência Artificial no Projeto
 
