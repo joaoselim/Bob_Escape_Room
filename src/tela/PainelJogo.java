@@ -26,6 +26,9 @@ public class PainelJogo extends JPanel implements Runnable {
     Cenario cenario = new Cenario();
 
     BufferedImage background;
+    BufferedImage imagemEnigma;
+
+    boolean mostrarEnigma = false;
 
     String cenarioAtual;
 
@@ -46,6 +49,7 @@ public class PainelJogo extends JPanel implements Runnable {
 
         cenarioAtual = "Entrada";
         carregarCenario(cenarioAtual);
+        carregarImagemEnigma();
     }
 
     public void startGameThread() {
@@ -72,6 +76,10 @@ public class PainelJogo extends JPanel implements Runnable {
     }
 
     public void update() {
+
+        if (controle.consumirInventario()) {
+            mostrarEnigma = !mostrarEnigma;
+        }
 
         if (cenario.permiteMovimentoJogador(cenarioAtual)) {
             jogador.update(cenarioAtual);
@@ -115,6 +123,27 @@ public class PainelJogo extends JPanel implements Runnable {
             }
         }
 
+    }
+
+    private void carregarImagemEnigma() {
+
+        String caminhoImagem = "/personagem/Inventario/Itens/ObjetosInterativos/Enigma_kakatua.png";
+
+        try {
+
+            InputStream stream = getClass().getResourceAsStream(caminhoImagem);
+
+            if (stream == null) {
+                throw new RuntimeException("Imagem do enigma não encontrada: " + caminhoImagem);
+            }
+
+            imagemEnigma = ImageIO.read(stream);
+
+        } catch (Exception e) {
+
+            System.out.println("ERRO AO CARREGAR IMAGEM DO ENIGMA");
+            e.printStackTrace();
+        }
     }
 
     private void carregarCenario(String nomeCenario) {
@@ -176,6 +205,36 @@ public class PainelJogo extends JPanel implements Runnable {
         }
     }
 
+    private void desenharEnigma(Graphics2D g2) {
+
+        if (imagemEnigma == null) {
+            return;
+        }
+
+        int larguraOriginal = imagemEnigma.getWidth();
+        int alturaOriginal = imagemEnigma.getHeight();
+
+        int larguraMaxima = (int) (screenWidth * 0.85);
+        int alturaMaxima = (int) (screenHeight * 0.85);
+
+        double escalaLargura = (double) larguraMaxima / larguraOriginal;
+        double escalaAltura = (double) alturaMaxima / alturaOriginal;
+        double escala = Math.min(escalaLargura, escalaAltura);
+
+        if (escala > 1) {
+            escala = 1;
+        }
+
+        int larguraFinal = (int) (larguraOriginal * escala);
+        int alturaFinal = (int) (alturaOriginal * escala);
+
+        int x = (screenWidth - larguraFinal) / 2;
+        int y = (screenHeight - alturaFinal) / 2;
+
+        g2.drawImage(imagemEnigma, x, y, larguraFinal, alturaFinal, null);
+    }
+
+
     @Override
     public void paintComponent(Graphics g) {
 
@@ -189,6 +248,10 @@ public class PainelJogo extends JPanel implements Runnable {
 
         if (cenario.deveDesenharJogador(cenarioAtual)) {
             jogador.draw(g2);
+        }
+
+        if (mostrarEnigma && jogador.possuiItem("papel")) {
+            desenharEnigma(g2);
         }
 
         g2.dispose();
