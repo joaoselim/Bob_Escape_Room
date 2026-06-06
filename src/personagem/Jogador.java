@@ -1,15 +1,16 @@
 package personagem;
 import personagem.Inventario.*;
 import personagem.Inventario.Itens.Item;
-
+import java.io.Serializable;
 import java.io.InputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import java.util.ArrayList;
+public class Jogador implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-public class Jogador {
-
-    Controle controle;
+    transient Controle controle;  // ← Adicionar "transient" aqui
     Inventario inventario;
     public int x = 0;
 
@@ -28,10 +29,10 @@ public class Jogador {
 
     boolean pulando = false;
 
-    BufferedImage[] framesAndando;
-    BufferedImage[] framesParado;
+    transient BufferedImage[] framesAndando;
+    transient BufferedImage[] framesParado;
 
-    BufferedImage framePulando;
+    transient BufferedImage framePulando;
 
     int controleSprite = 0;
     int spriteNum = 0;
@@ -227,12 +228,42 @@ public class Jogador {
             g2.drawImage(frameAtual,x + tamanhoPersonagem, y, -tamanhoPersonagem, tamanhoPersonagem,null);
         }
     }
+
     public void adicionarItem(Item item) {
         this.inventario.adicionarItem(item);
     }
 
     public boolean possuiItem(String nomeItem) {
-        return Inventario.possuiItem(nomeItem);
+        return inventario.possuiItem(nomeItem);
     }
 
+    // 🆕 MÉTODO ADICIONADO: Para reconectar o controle depois de carregar o jogo
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
+
+    // 🆕 MÉTODO ADICIONADO: Para acessar os itens do inventário (opcional)
+    public ArrayList<Item> getItens() {
+        return inventario.getItens();
+    }
+    public void recarregarImagens() {
+        try {
+            BufferedImage recorteAndando =
+                    carregarImagem("/personagem/animacoes/BobAndando.png");
+
+            BufferedImage recorteParado =
+                    carregarImagem("/personagem/animacoes/BobParado.png");
+
+            BufferedImage recortePulo =
+                    carregarImagem("/personagem/animacoes/BobPulando.png");
+
+            framesAndando = cortandoFrames(recorteAndando, 3, 3, 8);
+            framesParado = cortandoFrames(recorteParado, 5, 5, 25);
+            framePulando = recortePulo;
+
+        } catch (Exception e) {
+            System.out.println("ERRO AO RECARREGAR SPRITES");
+            e.printStackTrace();
+        }
+    }
 }

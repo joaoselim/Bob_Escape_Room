@@ -12,6 +12,7 @@ public class Controle implements KeyListener {
     public boolean puloAcionado;
 
     private boolean interagirConsumido = false;
+    private boolean inventarioConsumido = false;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -51,6 +52,7 @@ public class Controle implements KeyListener {
 
         if (code == KeyEvent.VK_E) {
             inventarioAcionado = false;
+            inventarioConsumido = false;
         }
 
         if (code == KeyEvent.VK_A) {
@@ -70,6 +72,16 @@ public class Controle implements KeyListener {
 
         if (interagirAcionado && !interagirConsumido) {
             interagirConsumido = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean consumirInventario() {
+
+        if (inventarioAcionado && !inventarioConsumido) {
+            inventarioConsumido = true;
             return true;
         }
 

@@ -96,7 +96,7 @@ public class Cenario {
         // MESA DA ENTRADA
         if (cenarioAtual.equals("Entrada") && jogador.x >= 450 && jogador.x <= 610) {
             // Verifica se já pegou a chave
-            if (!Inventario.possuiItem("chave_escritorio")) {
+            if (!jogador.possuiItem("chave_escritorio")) {
                 // Cria e adiciona a chave ao inventário
                 Item chaveEscritorio = new Item();
                 chaveEscritorio.setChave_Escritorio(true);
@@ -107,8 +107,8 @@ public class Cenario {
         }
 
         // MÁQUINA DE SALGADINHO
-        if (cenarioAtual.equals("Bar") && jogador.x >= 1050 && Inventario.possuiItem("dollar"))  {
-            if(!Inventario.possuiItem("papel"))
+        if (cenarioAtual.equals("Bar") && jogador.x >= 1050 && jogador.possuiItem("dollar"))  {
+            if(!jogador.possuiItem("papel"))
             {
                 Item papel = new Item();
                 papel.setPapel(true);
@@ -120,7 +120,7 @@ public class Cenario {
 
         // MESINHA DO QUARTO
         if (cenarioAtual.equals("Quarto") && jogador.x >= 600 && jogador.x <= 730) {
-            if (!Inventario.possuiItem("dollar")) {
+            if (!jogador.possuiItem("dollar")) {
                 Item dollar = new Item();
                 dollar.setDollar(true);
                 jogador.adicionarItem(dollar);
@@ -132,7 +132,7 @@ public class Cenario {
 
         // LIXEIRA DO ESCRITÓRIO
         if (cenarioAtual.equals("Escritorio") && jogador.x >= 125 && jogador.x <= 250) {
-            if(!Inventario.possuiItem("chave_quarto"))
+            if(!jogador.possuiItem("chave_quarto"))
             {
                 Item chaveQuarto = new Item();
                 chaveQuarto.setChave_quarto(true);

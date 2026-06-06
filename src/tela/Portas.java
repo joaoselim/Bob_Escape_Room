@@ -18,7 +18,7 @@ public class Portas {
             if (!portaHotel) {
                 JOptionPane.showMessageDialog(null, "Você destrancou o Hotel!", "", JOptionPane.INFORMATION_MESSAGE);
                 portaHotel = true;
-                return cenarioAtual;
+                return cenarioAtual = "Fim";
             }
 
             JOptionPane.showMessageDialog(null, "Concluiu o jogo, encerrando", "", JOptionPane.INFORMATION_MESSAGE);
